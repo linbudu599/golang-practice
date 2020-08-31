@@ -32,26 +32,23 @@ func cb(x int) int {
 	return x
 }
 
-
 // 方法结构体 类似于接口?
 type Circle struct {
-  radius float64
+	radius float64
 }
 
 // 哦哦就是指定从哪里.出来?
 //该 method 属于 Circle 类型对象中的方法
 func (c Circle) getArea() float64 {
-  //c.radius 即为 Circle 类型对象中的属性
-  return 3.14 * c.radius * c.radius
+	//c.radius 即为 Circle 类型对象中的属性
+	return 3.14 * c.radius * c.radius
 }
 
 func main() {
 
-
 	var c1 Circle
-  c1.radius = 10.00
-  fmt.Println("圆的面积 = ", c1.getArea())
-	
+	c1.radius = 10.00
+	fmt.Println("圆的面积 = ", c1.getArea())
 
 	nextNum := getSequence()
 
@@ -124,22 +121,22 @@ func main() {
 	}
 
 	// 暂时跳过 chan 指 channel 是后面并发阶段的只知识
-	var c1, c2, c3 chan int
-	var i1, i2 int
-	select {
-	case i1 = <-c1:
-		fmt.Printf("received ", i1, " from c1\n")
-	case c2 <- i2:
-		fmt.Printf("sent ", i2, " to c2\n")
-	case i3, ok := (<-c3): // same as: i3, ok := <-c3
-		if ok {
-			fmt.Printf("received ", i3, " from c3\n")
-		} else {
-			fmt.Printf("c3 is closed\n")
-		}
-	default:
-		fmt.Printf("no communication\n")
-	}
+	// var c1, c2, c3 chan int
+	// var i1, i2 int
+	// select {
+	// case i1 = <-c1:
+	// 	fmt.Printf("received ", i1, " from c1\n")
+	// case c2 <- i2:
+	// 	fmt.Printf("sent ", i2, " to c2\n")
+	// case i3, ok := (<-c3): // same as: i3, ok := <-c3
+	// 	if ok {
+	// 		fmt.Printf("received ", i3, " from c3\n")
+	// 	} else {
+	// 		fmt.Printf("c3 is closed\n")
+	// 	}
+	// default:
+	// 	fmt.Printf("no communication\n")
+	// }
 
 	// var loop int = 1
 
@@ -167,4 +164,58 @@ func main() {
 		fmt.Printf("第 %d 位 x 的值 = %d\n", i, x)
 	}
 
+	// 数组语法
+	// 不限制数组大小
+	var unlimit_arr = [...]int{1, 2, 3, 4}
+
+	fmt.Println(unlimit_arr)
+
+	var nn [10]int
+
+	for i := 0; i < 10; i++ {
+		nn[i] = i + 100
+	}
+
+	// 指针
+	var a1 int = 10
+
+	fmt.Printf("变量的地址: %x\n", &a1)
+
+	var ip *int
+
+	ip = &a1
+
+	fmt.Printf("ip 变量储存的指针地址: %x\n", ip)
+
+	/* 使用指针访问值 */
+	fmt.Printf("*ip 变量的值: %d\n", *ip)
+
+	// 空指针
+	// var empty_ptr *int
+
+	const max int = 3
+
+	a2 := []int{10, 11, 12}
+
+	var ptr_arr [max]*int
+
+	for i := 0; i < max; i++ {
+		// 还是需要手动赋值的
+		ptr_arr[i] = &a2[i]
+	}
+
+	for i := 0; i < max; i++ {
+		fmt.Printf("指针地址 %x\n", ptr_arr[i])
+		fmt.Printf("a[%d] = %d\n", i, *ptr_arr[i])
+	}
+
+	type Student struct {
+		name     string
+		age      int
+		class_id int
+	}
+
+	student := Student{name: "linbudu", age: 10, class_id: 1}
+
+	fmt.Println(student.name)
 }
