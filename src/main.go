@@ -218,4 +218,69 @@ func main() {
 	student := Student{name: "linbudu", age: 10, class_id: 1}
 
 	fmt.Println(student.name)
+
+	// 初始化长度 与 容量
+	s := make([]int, 5, 10)
+	fmt.Println(s) // 均为零值
+
+	arr1 := []int{1, 2, 3, 4, 5}
+
+	// 数组的引用
+	s1 := arr1[:]
+	fmt.Println(s1)
+
+	// 或者是[:end] / [start:]
+	s2 := arr1[1:3]
+	fmt.Println(s2)
+
+	var numbers = make([]int, 3, 5)
+
+	printSlice(numbers)
+
+	var numbers1 []int
+
+	if numbers1 == nil {
+		fmt.Println("切片是空的")
+	}
+
+	fmt.Println("numbers[1:4] ==", numbers[1:4])
+
+	var numbers3 []int
+
+	numbers3 = append(numbers3, 0)
+	numbers3 = append(numbers3, 1)
+	numbers3 = append(numbers3, 2, 3, 4)
+
+	numbers4 := make([]int, len(numbers3), (cap(numbers3) * 2))
+	printSlice(numbers4)
+
+	// 3 -> 4
+	copy(numbers4, numbers3)
+	printSlice(numbers4)
+
+	var map1 map[string]string
+
+	map1 = make(map[string]string)
+
+	map1["foo1"] = "bar1"
+	map1["foo2"] = "bar2"
+
+	for item := range map1 {
+		fmt.Println(item, map1[item])
+	}
+
+	// ok代表是否存在
+	foo1, ok := map1["foo1"]
+
+	fmt.Println(foo1, ok)
+
+	delete(map1, "foo1")
+
+	for idx, item := range numbers3 {
+		fmt.Println(idx, item)
+	}
+}
+
+func printSlice(x []int) {
+	fmt.Printf("len=%d cap=%d slice=%v\n", len(x), cap(x), x)
 }
