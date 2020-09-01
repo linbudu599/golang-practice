@@ -100,6 +100,31 @@ append 与 copy
 
 返回idx-val/key-val
 
+### 类型转换
+
+不支持隐式转换
+
+### 数据类型接口
+
+### 错误处理
+
+阿哲 果然很诡异
+
+```go
+func Sqrt(f float64) (float64, error) {
+    if f < 0 {
+        return 0, errors.New("math: square root of negative number")
+    }
+    // 实现
+}
+
+result, err:= Sqrt(-1)
+
+if err != nil {
+   fmt.Println(err)
+}
+```
+
 ## 其他
 
 - 格式化: go fmt 

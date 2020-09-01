@@ -279,6 +279,76 @@ func main() {
 	for idx, item := range numbers3 {
 		fmt.Println(idx, item)
 	}
+
+	var sum1 int = 17
+	var count1 int = 5
+	var mean1 float32
+
+	mean1 = float32(sum1) / float32(count1)
+
+	fmt.Println(mean1)
+
+	var phone Phone
+
+	phone = new(NokiaPhone)
+	phone.call(1)
+
+	phone = new(IPhone)
+	phone.call(2)
+
+	// 正常情况
+	if result, errorMsg := Divide(100, 10); errorMsg == "" {
+		fmt.Println("100/10 = ", result)
+	}
+	// 当除数为零的时候会返回错误信息
+	if _, errorMsg := Divide(100, 0); errorMsg != "" {
+		fmt.Println("errorMsg is: ", errorMsg)
+	}
+
+}
+
+type DivideError struct {
+	dividee int
+	divider int
+}
+
+func (de *DivideError) Error() string {
+	strFormat := `
+    Cannot proceed, the divider is zero.
+    dividee: %d
+    divider: 0
+`
+	return fmt.Sprintf(strFormat, de.dividee)
+}
+
+func Divide(varDividee int, varDivider int) (result int, errorMsg string) {
+	if varDivider == 0 {
+		dData := DivideError{
+			dividee: varDividee,
+			divider: varDivider,
+		}
+		errorMsg = dData.Error()
+		return
+	} else {
+		return varDividee / varDivider, ""
+	}
+
+}
+
+type Phone interface {
+	call(i int)
+}
+
+type NokiaPhone struct{}
+
+type IPhone struct{}
+
+func (nokiaPhone NokiaPhone) call(i int) {
+	fmt.Println("I am Nokia, I can call you!")
+}
+
+func (iPhone IPhone) call(i int) {
+	fmt.Println("I am iPhone, I can call you!")
 }
 
 func printSlice(x []int) {
