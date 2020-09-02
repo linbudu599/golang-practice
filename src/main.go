@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"time"
 )
 
 func getSequence() func() int {
@@ -305,6 +306,54 @@ func main() {
 		fmt.Println("errorMsg is: ", errorMsg)
 	}
 
+	go say("wuhu!")
+	say("yahu!")
+
+	ch1 := make(chan int)
+
+	s21 := []int{1, 2, 3, 4, -6, 9, 67, 3, 56}
+
+	go sum111(s21[:len(s1)/2], ch1)
+	go sum111(s21[len(s1)/2:], ch1)
+
+	x, y := <-ch1, <-ch1
+
+	fmt.Println(x, y, x+7)
+
+	ch := make(chan int, 2)
+
+	// 可以同时发送两个而不用读取
+	ch <- 1
+	ch <- 2
+
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
+
+	c_group := make(chan int, 10)
+	go fibonacci(cap(c_group), c_group)
+	// 如果c不关闭 range就不会结束
+	for i := range c_group {
+		fmt.Println(i)
+	}
+
+}
+
+func fibonacci(n int, c chan int) {
+	x, y := 0, 1
+	for i := 0; i < n; i++ {
+		c <- x
+		x, y = y, x+y
+	}
+	// 接收完10个数据后关闭通道
+	close(c)
+}
+
+func sum111(s []int, c chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // 把 sum 发送到通道 c
 }
 
 type DivideError struct {
@@ -333,6 +382,14 @@ func Divide(varDividee int, varDivider int) (result int, errorMsg string) {
 		return varDividee / varDivider, ""
 	}
 
+}
+
+func say(s string) bool {
+	for i := 0; i < len(s); i++ {
+		time.Sleep(100 * time.Millisecond)
+		fmt.Println(s)
+	}
+	return len(s) > 0
 }
 
 type Phone interface {

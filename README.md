@@ -5,6 +5,6 @@
 ## Source
 
 - [ ] [Golang Docs](https://go-zh.org/doc/)
-- [ ] [Runoob](https://www.runoob.com/go/go-tutorial.html)
+- [x] [Runoob](https://www.runoob.com/go/go-tutorial.html)
 - [ ] [Go By Example](https://gobyexample.com/)
 - [ ] [Awesome-Go](https://github.com/avelino/awesome-go)
