@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"time"
+	lib "golang-pratice/lib"
+	"log"
 )
 
 func getSequence() func() int {
@@ -46,6 +48,10 @@ func (c Circle) getArea() float64 {
 }
 
 func main() {
+	fmt.Println(lib.ExportVar)
+	log.Print("common")
+	// log.Fatal("fatal")
+	log.Panic("panic")
 
 	var c1 Circle
 	c1.radius = 10.00
